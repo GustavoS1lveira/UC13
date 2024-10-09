@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela de Cadastro</title>
-    <link rel="stylesheet" href="../css/cadastro.css">
-</head>
-<body>
-    <div class="login-container">
-        <h2>Cadastro</h2>
-        <form action="register.php" method="POST">
-            <div class="input-container">
-                <label for="name">Nome Completo</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="input-container">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="input-container">
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="input-container">
-                <label for="confirm-password">Confirmar Senha</label>
-                <input type="password" id="confirm-password" name="confirm-password" required>
-            </div>
-            <button type="submit">Cadastrar</button>
-        </form>
-        <p>Já tem uma conta? <a href="../html/index.html">Entrar</a></p>
-    </div>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/register.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <main>
+      <h2>Registro</h2>
+      <form id="registerForm">
+        E-mail: <input id="email" type="email" name="email" />
+
+        Senha: <input id="password" type="text" name="password" />
+        <button type="submit">Criar</button>
+
+        <p>Caso possua uma conta, entre nela</p>
+        <a href="index.html">Login</a>
+        <div id="message"></div>
+      </form>
+    </main>
+    <script src="../js/register.js"></script>
+  </body>
 </html>
