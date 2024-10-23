@@ -6,7 +6,20 @@ const cors = require("cors");
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 app.use(bodyParser.json());
+
 const SECRET_KEY = 'seu_segredo_aqui';
+const authenticateToken = (req, res, next) => {
+  const token =
+    req.headers["authorization"] && req.headers["authorization"].split("")[1];
+
+    if(!token) return res.sendStatus(401);
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    });
+  };
 
 app.use(
   cors(/*{
@@ -31,10 +44,13 @@ app.post("/login", async (req, res) => {
       if (result.length === 0 || !(await bcrypt.compare(password, result[0].password))) {
         return res.status(401).send("Credenciais inválidas");
       }
-      }
-  );
-});
-
+      return res.status(400).send("Credenciais inválidas");
+    })
+    const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
+    res.json({ token });
+  }
+);
+  
 app.post("/register", async (req, res) => {
   const { email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -59,7 +75,21 @@ app.post("/register", async (req, res) => {
 
     }
   );
-  
+});
+
+app.delete("/user", authenticateToken, (req, res) => {
+  db.query(
+    "DELETE FROM users WHERE email = ?",
+    [req.user.email],
+    (err, result) => {
+      if (err) throw err;
+
+      if (result.affectedRows === 0) {
+        return res.status(404).send("Usuário não encontrado");
+      }
+      res.send("Usuário deletado com sucesso");
+    }
+  );
 });
 
 app.listen(3000, () => {
