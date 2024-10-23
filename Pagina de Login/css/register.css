@@ -15,7 +15,7 @@ main {
   body {
     display: flex;
     justify-content: space-around;
-    background-image: url(../img//verde\ claro.jfif);
+    background-image: url(../img/Verde\ escuro.jfif);
     background-size: cover;
   }
   main button {
