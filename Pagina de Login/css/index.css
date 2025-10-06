@@ -14,7 +14,6 @@ main {
   body {
     display: flex;
     justify-content: space-around;
-    background-image: url(../img/Vermelho\ escuro.jpg);
     background-size: cover;
   }
   main button {
